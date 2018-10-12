@@ -1,0 +1,30 @@
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/p5.min.js"></script>
+    <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<meta charset="utf-8" />
+</head>
+<body>
+    <script>
+    function setup() {
+        createCanvas(400, 400);
+    }
+
+    function draw() {
+        background(255);
+        noFill()
+        rectMode(CENTER)
+        stroke(0);
+        rect(width/2, height/2, width*.8, width*.8);
+        stroke(255, 0, 0);
+        line(width*.2, height*.2, width*.8, height*.8);
+        line(width*.2, height*.8, width*.8, height*.2);
+    }
+    </script>
+</body>
+</html>
