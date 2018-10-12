@@ -1,0 +1,144 @@
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/p5.min.js"></script>
+    <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<meta charset="utf-8" />
+</head>
+<body>
+    <script>
+    var scoreL = 0;
+    var scoreR = 0;
+
+    const paddleWidth = 10;
+    const paddleHeight = 50;
+    const paddleSpeed = 5;
+
+    var ball = {
+        x: 200,
+        y: 300,
+        radius: 12,
+        dx: -5,
+        dy: 5,
+    }
+
+    var paddleL = {
+        y: 100,
+    }
+
+    var paddleR = {
+        y: 100,
+    }
+
+    function setup() {
+        createCanvas(400, 400);
+
+    }
+
+    function draw() {
+        background(0);
+        fill (200);
+        rect(-1, height - 10, width +1, 10);
+        rect(-1, 0, width +1, 10);
+        strokeWeight(10);
+        strokeCap(SQUARE);
+        stroke(200);
+        for (i = 5; i < height; i += 20) {
+            line(width/2, i, width/2, i + 10)
+        }
+
+        // draw the puck, the left paddle, and the right paddle
+        fill (255)
+        noStroke();
+        rect(ball.x, ball.y, ball.radius, ball.radius);
+        rect(0, paddleL.y, paddleWidth, paddleHeight);
+        rect(width - paddleWidth, paddleR.y, paddleWidth, paddleHeight);
+
+        // Update ball position
+        ball.x += ball.dx;
+        ball.y += ball.dy;
+
+        // Check if ball is bouncing off bottom
+        if (ball.y + ball.radius >= height-10) {
+            ball.y = height - ball.radius -10;
+            ball.dy = ball.dy * -1;
+        }
+
+        // Check if ball is bouncing off top
+        if (ball.y - ball.radius <= 0) {
+            ball.y = ball.radius;
+            ball.dy = ball.dy * -1;
+        }
+
+        // Check if ball is hitting right paddle
+        if (paddleR.y <= ball.y && ball.y <= paddleR.y + paddleHeight && ball.x + ball.radius >= width - paddleWidth)
+        {
+            ball.x = width - paddleWidth - ball.radius;
+            ball.dx = ball.dx * -1;
+        }
+
+        // Check if ball is hitting left paddle
+        if (paddleL.y <= ball.y && ball.y <= paddleL.y + paddleHeight && ball.x <= paddleWidth + ball.radius-12) //&& ball.y >= paddleL.y - paddleHeight
+        {
+            ball.x = paddleWidth + ball.radius-12;
+            ball.dx = ball.dx * -1;
+        }
+
+        // Check if the ball is off the screen
+        if (ball.x < 0) {
+            fill(255, 0, 0);
+            textSize(20);
+            text("Left Player Lost", 100, 100);
+            noLoop();
+        }
+
+        if (ball.x > width) {
+            fill(255, 0, 0);
+            textSize(20);
+            text("Right Player Lost", 100, 100);
+            noLoop();
+        }
+
+        // Check for user input
+
+        // Letter Q
+        if (keyIsDown(87    )) {
+            paddleL.y -= paddleSpeed;
+            if (paddleL.y < 10) {
+                paddleL.y = 10;
+            }
+        }
+
+        // Letter A
+        if (keyIsDown(83)) {
+            paddleL.y += paddleSpeed;
+            if (paddleL.y > height - paddleHeight - 10) {
+                paddleL.y = height - paddleHeight - 10;
+            }
+        }
+
+        // Up arrow
+        if (keyIsDown(38)) {
+            paddleR.y -= paddleSpeed;
+            if (paddleR.y < 10) {
+                paddleR.y = 10;
+            }
+        }
+
+        // Down arrow
+        if (keyIsDown(40)) {
+            paddleR.y += paddleSpeed;
+            if (paddleR.y > height - paddleHeight - 10) {
+                paddleR.y = height - paddleHeight - 10
+                ;
+            }
+        }
+
+    }
+    </script>
+</body>
+</html>
