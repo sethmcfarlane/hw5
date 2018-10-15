@@ -17,12 +17,12 @@
 
     function draw() {
         background(255);
-        for (i = 0; i < width; i += 10){
-            if (i < width/2){
-            line(width/2 - i, i, width/2 + i, i);
+        for (i = 0; i < height; i += 10){
+            if (i < height/2){
+            line(height/2 - i, i, height/2 + i, i);
         }
         else {
-            line(-1*(width/2 - i), i, width/2 + (height - i), i);
+            line(-1*(height/2 - i), i, height/2 + (height - i), i);
         }
         }
     }
